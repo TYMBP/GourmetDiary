@@ -1,0 +1,567 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1006365F1A0F7653003424B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1006365E1A0F7653003424B8 /* main.m */; };
+		100636621A0F7653003424B8 /* TYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 100636611A0F7653003424B8 /* TYAppDelegate.m */; };
+		100636641A0F7653003424B8 /* GourmetDiary-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = 100636631A0F7653003424B8 /* GourmetDiary-Prefix.pch */; };
+		100636661A0F7653003424B8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 100636651A0F7653003424B8 /* Images.xcassets */; };
+		100636691A0F7653003424B8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 100636671A0F7653003424B8 /* LaunchScreen.xib */; };
+		100636751A0F7653003424B8 /* GourmetDiaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 100636741A0F7653003424B8 /* GourmetDiaryTests.m */; };
+		100636861A0F7874003424B8 /* TYApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 100636851A0F7874003424B8 /* TYApplication.m */; };
+		1006368A1A0F9AFB003424B8 /* GourmetDiary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 100636881A0F9AFB003424B8 /* GourmetDiary.xcdatamodeld */; };
+		100636901A0FA1A1003424B8 /* TYTopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1006368F1A0FA1A1003424B8 /* TYTopViewController.m */; };
+		100636931A0FA211003424B8 /* TYSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 100636921A0FA211003424B8 /* TYSearchViewController.m */; };
+		100636961A0FA258003424B8 /* TYViewControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 100636951A0FA258003424B8 /* TYViewControllerManager.m */; };
+		100636991A0FA3C3003424B8 /* TYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 100636981A0FA3C3003424B8 /* TYViewController.m */; };
+		10A0B7EB1A12DA3600895D24 /* TYLocationSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A0B7EA1A12DA3600895D24 /* TYLocationSearch.m */; };
+		10A0B7F01A133E3F00895D24 /* TYTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A0B7EF1A133E3F00895D24 /* TYTableViewCell.m */; };
+		10A0B7F31A13460400895D24 /* SearchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A0B7F21A13460400895D24 /* SearchData.m */; };
+		10A0B7F71A13473200895D24 /* TYGourmetDialyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 10A0B7F61A13473200895D24 /* TYGourmetDialyManager.m */; };
+		10CF50651A123D690051F073 /* TYURLOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 10CF50641A123D690051F073 /* TYURLOperation.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1006366F1A0F7653003424B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 100636511A0F7653003424B8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 100636581A0F7653003424B8;
+			remoteInfo = GourmetDiary;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		100636591A0F7653003424B8 /* GourmetDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GourmetDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1006365D1A0F7653003424B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1006365E1A0F7653003424B8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		100636601A0F7653003424B8 /* TYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TYAppDelegate.h; sourceTree = "<group>"; };
+		100636611A0F7653003424B8 /* TYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TYAppDelegate.m; sourceTree = "<group>"; };
+		100636631A0F7653003424B8 /* GourmetDiary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GourmetDiary-Prefix.pch"; sourceTree = "<group>"; };
+		100636651A0F7653003424B8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		100636681A0F7653003424B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		1006366E1A0F7653003424B8 /* GourmetDiaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GourmetDiaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		100636731A0F7653003424B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100636741A0F7653003424B8 /* GourmetDiaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GourmetDiaryTests.m; sourceTree = "<group>"; };
+		100636841A0F7874003424B8 /* TYApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYApplication.h; sourceTree = "<group>"; };
+		100636851A0F7874003424B8 /* TYApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYApplication.m; sourceTree = "<group>"; };
+		100636891A0F9AFB003424B8 /* GourmetDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GourmetDiary.xcdatamodel; sourceTree = "<group>"; };
+		1006368E1A0FA1A1003424B8 /* TYTopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTopViewController.h; sourceTree = "<group>"; };
+		1006368F1A0FA1A1003424B8 /* TYTopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYTopViewController.m; sourceTree = "<group>"; };
+		100636911A0FA211003424B8 /* TYSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYSearchViewController.h; sourceTree = "<group>"; };
+		100636921A0FA211003424B8 /* TYSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYSearchViewController.m; sourceTree = "<group>"; };
+		100636941A0FA258003424B8 /* TYViewControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYViewControllerManager.h; sourceTree = "<group>"; };
+		100636951A0FA258003424B8 /* TYViewControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYViewControllerManager.m; sourceTree = "<group>"; };
+		100636971A0FA3C3003424B8 /* TYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYViewController.h; sourceTree = "<group>"; };
+		100636981A0FA3C3003424B8 /* TYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYViewController.m; sourceTree = "<group>"; };
+		10A0B7E91A12DA3600895D24 /* TYLocationSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYLocationSearch.h; sourceTree = "<group>"; };
+		10A0B7EA1A12DA3600895D24 /* TYLocationSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYLocationSearch.m; sourceTree = "<group>"; };
+		10A0B7EE1A133E3F00895D24 /* TYTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTableViewCell.h; sourceTree = "<group>"; };
+		10A0B7EF1A133E3F00895D24 /* TYTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYTableViewCell.m; sourceTree = "<group>"; };
+		10A0B7F11A13460400895D24 /* SearchData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchData.h; sourceTree = "<group>"; };
+		10A0B7F21A13460400895D24 /* SearchData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchData.m; sourceTree = "<group>"; };
+		10A0B7F51A13473200895D24 /* TYGourmetDialyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYGourmetDialyManager.h; sourceTree = "<group>"; };
+		10A0B7F61A13473200895D24 /* TYGourmetDialyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYGourmetDialyManager.m; sourceTree = "<group>"; };
+		10CF50631A123D690051F073 /* TYURLOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYURLOperation.h; sourceTree = "<group>"; };
+		10CF50641A123D690051F073 /* TYURLOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYURLOperation.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		100636561A0F7653003424B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1006366B1A0F7653003424B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		100636501A0F7653003424B8 = {
+			isa = PBXGroup;
+			children = (
+				1006365B1A0F7653003424B8 /* GourmetDiary */,
+				100636711A0F7653003424B8 /* GourmetDiaryTests */,
+				1006365A1A0F7653003424B8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1006365A1A0F7653003424B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				100636591A0F7653003424B8 /* GourmetDiary.app */,
+				1006366E1A0F7653003424B8 /* GourmetDiaryTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1006365B1A0F7653003424B8 /* GourmetDiary */ = {
+			isa = PBXGroup;
+			children = (
+				10A0B7ED1A133D0900895D24 /* View */,
+				1006368B1A0FA063003424B8 /* Controller */,
+				100636871A0F9960003424B8 /* Model */,
+				1006367E1A0F76C5003424B8 /* Domain */,
+				100636601A0F7653003424B8 /* TYAppDelegate.h */,
+				100636611A0F7653003424B8 /* TYAppDelegate.m */,
+				100636631A0F7653003424B8 /* GourmetDiary-Prefix.pch */,
+				100636651A0F7653003424B8 /* Images.xcassets */,
+				100636671A0F7653003424B8 /* LaunchScreen.xib */,
+				1006365C1A0F7653003424B8 /* Supporting Files */,
+			);
+			path = GourmetDiary;
+			sourceTree = "<group>";
+		};
+		1006365C1A0F7653003424B8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1006365D1A0F7653003424B8 /* Info.plist */,
+				1006365E1A0F7653003424B8 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		100636711A0F7653003424B8 /* GourmetDiaryTests */ = {
+			isa = PBXGroup;
+			children = (
+				100636741A0F7653003424B8 /* GourmetDiaryTests.m */,
+				100636721A0F7653003424B8 /* Supporting Files */,
+			);
+			path = GourmetDiaryTests;
+			sourceTree = "<group>";
+		};
+		100636721A0F7653003424B8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				100636731A0F7653003424B8 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1006367E1A0F76C5003424B8 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				100636801A0F770D003424B8 /* Connection */,
+				1006367F1A0F76F3003424B8 /* Application */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		1006367F1A0F76F3003424B8 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				100636841A0F7874003424B8 /* TYApplication.h */,
+				100636851A0F7874003424B8 /* TYApplication.m */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		100636801A0F770D003424B8 /* Connection */ = {
+			isa = PBXGroup;
+			children = (
+				10CF50631A123D690051F073 /* TYURLOperation.h */,
+				10CF50641A123D690051F073 /* TYURLOperation.m */,
+				10A0B7E91A12DA3600895D24 /* TYLocationSearch.h */,
+				10A0B7EA1A12DA3600895D24 /* TYLocationSearch.m */,
+			);
+			path = Connection;
+			sourceTree = "<group>";
+		};
+		100636871A0F9960003424B8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				100636881A0F9AFB003424B8 /* GourmetDiary.xcdatamodeld */,
+				10A0B7F11A13460400895D24 /* SearchData.h */,
+				10A0B7F21A13460400895D24 /* SearchData.m */,
+				10A0B7F51A13473200895D24 /* TYGourmetDialyManager.h */,
+				10A0B7F61A13473200895D24 /* TYGourmetDialyManager.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1006368B1A0FA063003424B8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1006368D1A0FA0C3003424B8 /* Search */,
+				1006368C1A0FA0A2003424B8 /* Top */,
+				100636941A0FA258003424B8 /* TYViewControllerManager.h */,
+				100636951A0FA258003424B8 /* TYViewControllerManager.m */,
+				100636971A0FA3C3003424B8 /* TYViewController.h */,
+				100636981A0FA3C3003424B8 /* TYViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1006368C1A0FA0A2003424B8 /* Top */ = {
+			isa = PBXGroup;
+			children = (
+				1006368E1A0FA1A1003424B8 /* TYTopViewController.h */,
+				1006368F1A0FA1A1003424B8 /* TYTopViewController.m */,
+			);
+			path = Top;
+			sourceTree = "<group>";
+		};
+		1006368D1A0FA0C3003424B8 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				100636911A0FA211003424B8 /* TYSearchViewController.h */,
+				100636921A0FA211003424B8 /* TYSearchViewController.m */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		10A0B7ED1A133D0900895D24 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				10A0B7EE1A133E3F00895D24 /* TYTableViewCell.h */,
+				10A0B7EF1A133E3F00895D24 /* TYTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		100636581A0F7653003424B8 /* GourmetDiary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 100636781A0F7653003424B8 /* Build configuration list for PBXNativeTarget "GourmetDiary" */;
+			buildPhases = (
+				100636551A0F7653003424B8 /* Sources */,
+				100636561A0F7653003424B8 /* Frameworks */,
+				100636571A0F7653003424B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GourmetDiary;
+			productName = GourmetDiary;
+			productReference = 100636591A0F7653003424B8 /* GourmetDiary.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1006366D1A0F7653003424B8 /* GourmetDiaryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1006367B1A0F7653003424B8 /* Build configuration list for PBXNativeTarget "GourmetDiaryTests" */;
+			buildPhases = (
+				1006366A1A0F7653003424B8 /* Sources */,
+				1006366B1A0F7653003424B8 /* Frameworks */,
+				1006366C1A0F7653003424B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				100636701A0F7653003424B8 /* PBXTargetDependency */,
+			);
+			name = GourmetDiaryTests;
+			productName = GourmetDiaryTests;
+			productReference = 1006366E1A0F7653003424B8 /* GourmetDiaryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		100636511A0F7653003424B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = yamatomo;
+				TargetAttributes = {
+					100636581A0F7653003424B8 = {
+						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = XC9Y3QHCBZ;
+					};
+					1006366D1A0F7653003424B8 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 100636581A0F7653003424B8;
+					};
+				};
+			};
+			buildConfigurationList = 100636541A0F7653003424B8 /* Build configuration list for PBXProject "GourmetDiary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 100636501A0F7653003424B8;
+			productRefGroup = 1006365A1A0F7653003424B8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				100636581A0F7653003424B8 /* GourmetDiary */,
+				1006366D1A0F7653003424B8 /* GourmetDiaryTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		100636571A0F7653003424B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100636641A0F7653003424B8 /* GourmetDiary-Prefix.pch in Resources */,
+				100636691A0F7653003424B8 /* LaunchScreen.xib in Resources */,
+				100636661A0F7653003424B8 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1006366C1A0F7653003424B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		100636551A0F7653003424B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10A0B7F71A13473200895D24 /* TYGourmetDialyManager.m in Sources */,
+				100636621A0F7653003424B8 /* TYAppDelegate.m in Sources */,
+				10A0B7EB1A12DA3600895D24 /* TYLocationSearch.m in Sources */,
+				1006365F1A0F7653003424B8 /* main.m in Sources */,
+				100636991A0FA3C3003424B8 /* TYViewController.m in Sources */,
+				100636961A0FA258003424B8 /* TYViewControllerManager.m in Sources */,
+				100636901A0FA1A1003424B8 /* TYTopViewController.m in Sources */,
+				10CF50651A123D690051F073 /* TYURLOperation.m in Sources */,
+				10A0B7F31A13460400895D24 /* SearchData.m in Sources */,
+				100636931A0FA211003424B8 /* TYSearchViewController.m in Sources */,
+				10A0B7F01A133E3F00895D24 /* TYTableViewCell.m in Sources */,
+				1006368A1A0F9AFB003424B8 /* GourmetDiary.xcdatamodeld in Sources */,
+				100636861A0F7874003424B8 /* TYApplication.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1006366A1A0F7653003424B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100636751A0F7653003424B8 /* GourmetDiaryTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		100636701A0F7653003424B8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 100636581A0F7653003424B8 /* GourmetDiary */;
+			targetProxy = 1006366F1A0F7653003424B8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		100636671A0F7653003424B8 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				100636681A0F7653003424B8 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		100636761A0F7653003424B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		100636771A0F7653003424B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		100636791A0F7653003424B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GourmetDiary/GourmetDiary-Prefix.pch";
+				INFOPLIST_FILE = GourmetDiary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		1006367A1A0F7653003424B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GourmetDiary/GourmetDiary-Prefix.pch";
+				INFOPLIST_FILE = GourmetDiary/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		1006367C1A0F7653003424B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = GourmetDiaryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GourmetDiary.app/GourmetDiary";
+			};
+			name = Debug;
+		};
+		1006367D1A0F7653003424B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = GourmetDiaryTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GourmetDiary.app/GourmetDiary";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		100636541A0F7653003424B8 /* Build configuration list for PBXProject "GourmetDiary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100636761A0F7653003424B8 /* Debug */,
+				100636771A0F7653003424B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		100636781A0F7653003424B8 /* Build configuration list for PBXNativeTarget "GourmetDiary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100636791A0F7653003424B8 /* Debug */,
+				1006367A1A0F7653003424B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1006367B1A0F7653003424B8 /* Build configuration list for PBXNativeTarget "GourmetDiaryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1006367C1A0F7653003424B8 /* Debug */,
+				1006367D1A0F7653003424B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		100636881A0F9AFB003424B8 /* GourmetDiary.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				100636891A0F9AFB003424B8 /* GourmetDiary.xcdatamodel */,
+			);
+			currentVersion = 100636891A0F9AFB003424B8 /* GourmetDiary.xcdatamodel */;
+			path = GourmetDiary.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 100636511A0F7653003424B8 /* Project object */;
+}
