@@ -27,6 +27,7 @@
   LOG()
   self = [super init];
   if (self) {
+    _gourmetDiaryManager = [TYGourmetDiaryManager sharedmanager];
     _urlOperationQueue = [[NSOperationQueue alloc] init];
     [_urlOperationQueue addObserver:self forKeyPath:@"operationCount" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:NULL];
   }

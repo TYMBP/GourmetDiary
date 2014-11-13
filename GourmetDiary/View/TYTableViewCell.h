@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import "SearchData.h"
 
 @interface TYTableViewCell : UITableViewCell
+
+- (void)setUpRowData:(NSString *)rowdata rowIndexPath:(NSInteger)row;
+- (void)setUpRowData:(SearchData *)rowdata;
 
 @end

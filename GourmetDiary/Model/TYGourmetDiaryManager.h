@@ -1,5 +1,5 @@
 //
-//  TYGourmetDialyManager.h
+//  TYGourmetDiaryManager.h
 //  GourmetDiary
 //
 //  Created by Tomohiko on 2014/11/12.
@@ -9,13 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface TYGourmetDialyManager : NSObject
+@interface TYGourmetDiaryManager : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, strong) NSPersistentStoreCoordinator *coordinator;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjetModel;
 
-+ (TYGourmetDialyManager *)sharedmanager;
++ (TYGourmetDiaryManager *)sharedmanager;
 - (void)addData:(NSDictionary *)data;
+- (void)resetData;
+- (NSArray *)fetchData;
 
 @end

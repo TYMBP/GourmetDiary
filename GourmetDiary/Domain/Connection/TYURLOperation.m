@@ -101,7 +101,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-  LOG(@"data: %@", data)
+//  LOG(@"data: %@", data)
   if (_isCancelled || _isFinished)
     return;
   [_data appendData:data];
@@ -109,11 +109,11 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-  LOG(@"connection: %@", connection)
+//  LOG(@"connection: %@", connection)
   if (_isCancelled || _isFinished)
     return;
   NSString *str = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
-  LOG(@"str: %@", str)
+//  LOG(@"str: %@", str)
   [self connectionDidFihish:nil];
   [self end];
   

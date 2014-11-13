@@ -20,4 +20,12 @@
     // Configure the view for the selected state
 }
 
+- (void)setUpRowData:(NSString *)rowdata rowIndexPath:(NSInteger)row
+{
+}
+
+- (void)setUpRowData:(SearchData *)rowdata
+{
+}
+
 @end

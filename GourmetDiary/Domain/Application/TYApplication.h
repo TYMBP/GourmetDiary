@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "TYURLOperation.h"
 #import <CoreLocation/CoreLocation.h>
+#import "TYGourmetDiaryManager.h"
 
 @interface TYApplication : NSObject <CLLocationManagerDelegate>
+
+@property (strong, readonly, nonatomic) TYGourmetDiaryManager *gourmetDiaryManager;
 
 + (id)application;
 - (void)addURLOperation:(TYURLOperation *)urlOperation;

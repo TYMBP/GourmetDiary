@@ -9,7 +9,9 @@
 #import "TYSearchViewController.h"
 #import "TYLocationSearch.h"
 #import "TYApplication.h"
-#import "TYGourmetDialyManager.h"
+#import "TYGourmetDiaryManager.h"
+#import "TYSearchTableViewCell.h"
+//#import "SearchData.h"
 
 @implementation TYSearchViewController {
   NSMutableData *_responseData;
@@ -17,7 +19,8 @@
   UITextField *_shopKeyword;
   UITextField *_areaStation;
   UITableView *_tableView;
-  TYGourmetDialyManager *_dataManager;
+  TYGourmetDiaryManager *_dataManager;
+  NSArray *_searchData;
   
 // あとで消す NSArray *_location;
 }
@@ -27,12 +30,8 @@
   LOG()
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
-    _dataManager = [TYGourmetDialyManager sharedmanager];
+    _dataManager = [TYGourmetDiaryManager sharedmanager];
     
-//移動したのであとで消す
-//    _location = [[TYApplication application] getLocation];
-//    LOG(@"location %@", _location)
-//    LOG(@"lat %@", [_location objectAtIndex:1])
   }
   return self;
 }
@@ -121,9 +120,6 @@
   if ([self.modalDelegate respondsToSelector:@selector(searchDidFinish)]) {
     [self.modalDelegate searchDidFinish];
   }
-// あとで削除する1112
-//  NSNotification *n = [NSNotification notificationWithName:@"searchFinish" object:self];
-//  [[NSNotificationCenter defaultCenter] postNotification:n];
 }
 
 - (void)runAPI
@@ -139,13 +135,12 @@
   LOG_METHOD;
   NSError *error = nil;
   NSString *json_str = [[NSString alloc] initWithData:_connection.data encoding:NSUTF8StringEncoding];
-  LOG(@"data_str:%@",json_str)
+//  LOG(@"data_str:%@",json_str)
   NSData *jsonData = [json_str dataUsingEncoding:NSUTF8StringEncoding];
   NSDictionary *data = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-  LOG(@"data:%@",data)
-  
   [_dataManager addData:data];
-  
+  _searchData = [_dataManager fetchData];
+  [_tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -160,13 +155,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+  LOG(@"indexPath %lu", indexPath.row)
+  SearchData *rowData = [_searchData objectAtIndex:indexPath.row];
+  LOG(@"rowdata %@", rowData.shop)
   static NSString *cellIdentifier = @"Cell";
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+  TYSearchTableViewCell *cell = (TYSearchTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil) {
-    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    cell.textLabel.text = @"test";
+    cell = [[TYSearchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
   }
+  [cell setUpRowData:rowData];
   return cell;
+}
+
+//タップイベント
+#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  LOG()
 }
 
 

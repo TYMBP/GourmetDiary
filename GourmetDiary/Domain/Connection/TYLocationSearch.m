@@ -38,8 +38,8 @@
 
 - (void)connectionDidFinish:(NSError *)error
 {
-  LOG()
   if (error) {
+    LOG(@"error: %@", error)
     return;
   }
   if (200 != self.statusCode) {

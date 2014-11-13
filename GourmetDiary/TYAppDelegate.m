@@ -16,6 +16,7 @@
   LOG_METHOD
   self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
   
+  
   _application = [[TYApplication alloc] init];
   TYViewController *viewController = [[TYViewController alloc] init];
   
