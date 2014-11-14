@@ -13,6 +13,7 @@
 @interface SearchData : NSManagedObject
 
 @property (nonatomic, retain) NSString * shop;
+@property (nonatomic, retain) NSString * sid;
 @property (nonatomic, retain) NSString * area;
 @property (nonatomic, retain) NSString * category;
 @property (nonatomic, retain) NSNumber * lat;

@@ -91,25 +91,39 @@ static TYGourmetDiaryManager *sharedInstance = nil;
     if (![_context save:&error]) {
       LOG(@"error: %@", error)
     }
+  } else {
+    NSFetchRequest *requestDelete = [[NSFetchRequest alloc] init];
+    [requestDelete setEntity:[NSEntityDescription entityForName:@"SearchData" inManagedObjectContext:_context]];
+    [requestDelete setIncludesPropertyValues:NO];
+    NSError *error = nil;
+    NSArray *dataArray = [_context executeFetchRequest:requestDelete error:&error];
+    for (NSManagedObject *data in dataArray) {
+      [_context deleteObject:data];
+    }
+    NSError *saveError = nil;
+    [_context save:&saveError];
   }
 }
 
 - (void)addData:(NSDictionary *)data
 {
-//  LOG(@"data: %@", data)
-  for (_n = 0; _n < 3; _n++) {
+  NSArray *ary = [[data objectForKey:@"results"] objectForKey:@"shop"];
+  LOG(@"data: %lu", ary.count)
+  
+  for (_n = 0; _n < ary.count; _n++) {
     _searchData = (SearchData *)[NSEntityDescription insertNewObjectForEntityForName:@"SearchData" inManagedObjectContext:_context];
     if (_searchData == nil) {
       return;
     }
     _searchData.shop = [[data valueForKeyPath:@"results.shop.name"] objectAtIndex:_n];
+    _searchData.sid = [[data valueForKeyPath:@"results.shop.id"] objectAtIndex:_n];
     _searchData.category = [[data valueForKeyPath:@"results.shop.genre.name"] objectAtIndex:_n];
     _searchData.area = [[data valueForKeyPath:@"results.shop.small_area.name"] objectAtIndex:_n];
     NSString *lat = [[data valueForKeyPath:@"results.shop.lat"] objectAtIndex:_n];
     _searchData.lat = [NSNumber numberWithDouble:[lat doubleValue]];
     NSString *lng = [[data valueForKeyPath:@"results.shop.lng"] objectAtIndex:_n];
     _searchData.lng = [NSNumber numberWithDouble:[lng doubleValue]];
-//    LOG(@"n %d shop: %@, category:%@, area:%@ lat:%@, lng:%@", _n, _searchData.shop, _searchData.category, _searchData.area, _searchData.lat, _searchData.lng)
+//    LOG(@"n %d shop: %@ sid: %@ category:%@ area:%@ lat:%@ lng:%@", _n, _searchData.shop, _searchData.sid, _searchData.category, _searchData.area, _searchData.lat, _searchData.lng)
     NSError *error = nil;
     if (![_context save:&error]) {
       LOG("error %@", error)

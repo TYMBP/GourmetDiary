@@ -11,7 +11,11 @@
 #import "TYApplication.h"
 #import "TYGourmetDiaryManager.h"
 #import "TYSearchTableViewCell.h"
+#import "TYResultViewController.h"
+#import "TYUtil.h"
 //#import "SearchData.h"
+
+#define MORE_LABEL 100
 
 @implementation TYSearchViewController {
   NSMutableData *_responseData;
@@ -19,15 +23,16 @@
   UITextField *_shopKeyword;
   UITextField *_areaStation;
   UITableView *_tableView;
+  UILabel *_more;
   TYGourmetDiaryManager *_dataManager;
   NSArray *_searchData;
-  
+  NSString *_shopMessage;
+  NSString *_areaMessage;
 // あとで消す NSArray *_location;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-  LOG()
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     _dataManager = [TYGourmetDiaryManager sharedmanager];
@@ -47,12 +52,17 @@
   
   //検索ボタン
   UIButton *searchBtn = [self makeButton:CGRectMake(self.view.frame.size.width/2-90, 300, 180, 50) text:@"Search"];
-  [searchBtn addTarget:self action:@selector(hoge) forControlEvents:UIControlEventTouchUpInside];
+  [searchBtn addTarget:self action:@selector(searchStart) forControlEvents:UIControlEventTouchUpInside];
   //検索テキストフィールド
   _shopKeyword = [self makeTextField:CGRectMake(self.view.frame.size.width/2-120, 100, 240, 40)];
   _areaStation = [self makeTextField:CGRectMake(self.view.frame.size.width/2-120, 180, 240, 40)];
-  UILabel *shopInput = [self makeLabel:CGRectMake(70, 70, 100, 30) text:@"店名 キーワード"];
-  UILabel *areaInput = [self makeLabel:CGRectMake(70, 150, 100, 30) text:@"エリア 駅名"];
+  UILabel *shopInput = [self makeLabel:CGRectMake(70, 70, 100, 30) text:@"店名 キーワード" size:12];
+  UILabel *areaInput = [self makeLabel:CGRectMake(70, 150, 100, 30) text:@"エリア 駅名" size:12];
+  UILabel *location = [self makeLabel:CGRectMake(10, 370, 100, 30) text:@"周辺のお店" size:18];
+  _more = [self makeLabel:CGRectMake(290, 370, 80, 30) text:@"もっとみる" size:14];
+  _more.tag = MORE_LABEL;
+  _more.userInteractionEnabled = YES;
+  
   //table
   _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 400, self.view.bounds.size.width, 180)];
   _tableView.backgroundColor = [UIColor clearColor];
@@ -67,22 +77,19 @@
   [self.view addSubview:_areaStation];
   [self.view addSubview:shopInput];
   [self.view addSubview:areaInput];
+  [self.view addSubview:location];
+  [self.view addSubview:_more];
   [self.view addSubview:_tableView];
   
 //   APIよりDATAの取得
   [self runAPI];
 }
 
-//チェック用
-- (void)hoge
-{
-  LOG()
-}
 
-- (UILabel *)makeLabel:(CGRect)rect text:(NSString *)text
+- (UILabel *)makeLabel:(CGRect)rect text:(NSString *)text size:(NSInteger)size
 {
   UILabel *label = [[UILabel alloc] initWithFrame:rect];
-  label.font = [UIFont fontWithName:FONT_HIRAKAKUW6 size:12];
+  label.font = [UIFont fontWithName:FONT_HIRAKAKUW6 size:size];
   label.textColor = [UIColor blackColor];
   label.text = text;
   
@@ -122,9 +129,67 @@
   }
 }
 
+//検索スタート
+- (void)searchStart
+{
+  LOG()
+  _shopMessage = nil;
+  _areaMessage = nil;
+  [_shopKeyword resignFirstResponder];
+  [_areaStation resignFirstResponder];
+  NSMutableDictionary *para = [NSMutableDictionary dictionary];
+ 
+  //バリデーション
+  if ([_shopKeyword.text length] == 0 && [_areaStation.text length] == 0) {
+    [self warning:@"検索ワードを入力してください"];
+  } else {
+    _shopMessage = [TYUtil checkKeyword:_shopKeyword.text];
+    LOG(@"shopMessage %@", _shopMessage)
+    _areaMessage = [TYUtil checkKeyword:_areaStation.text];
+    LOG(@"areaMessage %@", _areaMessage)
+    if ([_shopMessage length] != 0) {
+      LOG(@"message error")
+      [self warning:_shopMessage];
+    } else if ([_areaMessage length] != 0) {
+      LOG(@"message error")
+      [self warning:_areaMessage];
+    }
+    [para setValue:_shopKeyword.text forKey:@"shop"];
+    [para setValue:_areaStation.text forKey:@"area"];
+    
+    TYResultViewController *resultVC = [[TYResultViewController alloc] initWithNibName:nil bundle:nil set:2 para:para];
+    [self.navigationController pushViewController:resultVC animated:YES];
+  }
+}
+
+- (void)warning:(NSString *)mess
+{
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"入力エラー" message:mess preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    LOG(@"OK tap")
+  }];
+  [alert addAction:ok];
+  [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  UITouch *touch = [[event allTouches] anyObject];
+  if (touch.view.tag == _more.tag) {
+    LOG()
+    TYResultViewController *resultVC = [[TYResultViewController alloc] initWithNibName:nil bundle:nil set:1 para:nil];
+    [self.navigationController pushViewController:resultVC animated:YES];
+  }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+}
+
 - (void)runAPI
 {
   LOG()
+  [_dataManager resetData];
   @synchronized (self) {
     _connection = [[TYLocationSearch alloc] initWithTarget:self selector:@selector(getApiData)];
     [[TYApplication application] addURLOperation:_connection];

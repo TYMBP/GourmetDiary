@@ -6,8 +6,9 @@
         <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="lng" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="shop" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sid" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="SearchData" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="SearchData" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>

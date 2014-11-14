@@ -12,6 +12,7 @@
 @implementation SearchData
 
 @dynamic shop;
+@dynamic sid;
 @dynamic area;
 @dynamic category;
 @dynamic lat;
