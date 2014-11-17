@@ -12,6 +12,7 @@
 #import "TYGourmetDiaryManager.h"
 #import "TYSearchTableViewCell.h"
 #import "TYResultViewController.h"
+#import "TYDetailViewController.h"
 #import "TYUtil.h"
 //#import "SearchData.h"
 
@@ -36,7 +37,6 @@
   self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
   if (self) {
     _dataManager = [TYGourmetDiaryManager sharedmanager];
-    
   }
   return self;
 }
@@ -84,7 +84,6 @@
 //   APIよりDATAの取得
   [self runAPI];
 }
-
 
 - (UILabel *)makeLabel:(CGRect)rect text:(NSString *)text size:(NSInteger)size
 {
@@ -236,7 +235,12 @@
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  LOG()
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  SearchData *rowData = [_searchData objectAtIndex:indexPath.row];
+  LOG(@"sid: %@", rowData.sid)
+  NSString *para = rowData.sid;
+  TYDetailViewController *detailVC = [[TYDetailViewController alloc] initWithNibName:nil bundle:nil para:para];
+  [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

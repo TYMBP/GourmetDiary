@@ -8,10 +8,6 @@
 
 #import "TYTopViewController.h"
 
-@interface TYTopViewController (){
-}
-@end
-
 @implementation TYTopViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -21,9 +17,6 @@
     LOG()
     self.title = @"TOP";
 
-// あとで削除する1112
-//    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-//    [nc addObserver:self selector:@selector(searchDidFinish) name:@"searchFinish" object:nil];
   }
   return self;
 }

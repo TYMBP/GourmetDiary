@@ -81,7 +81,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     if (_target) {
-      LOG()
+//      LOG()
       [_target performSelectorOnMainThread:_selector withObject:self waitUntilDone:NO];
     }
 #pragma clang diagnostic pop
@@ -92,7 +92,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-  LOG(@"response: %@", response)
+//  LOG(@"response: %@", response)
   if (_isCancelled || _isFinished)
     return;
   _statusCode = [(NSHTTPURLResponse *)response statusCode];
@@ -112,7 +112,7 @@
 //  LOG(@"connection: %@", connection)
   if (_isCancelled || _isFinished)
     return;
-  NSString *str = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
+//  NSString *str = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
 //  LOG(@"str: %@", str)
   [self connectionDidFihish:nil];
   [self end];

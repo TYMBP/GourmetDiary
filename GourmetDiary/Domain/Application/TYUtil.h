@@ -11,5 +11,6 @@
 @interface TYUtil : NSObject
 
 + (NSString *)checkKeyword:(NSString *)keyword;
++ (NSString *)checkInputTextMax:(NSString *)keyword;
 
 @end

@@ -8,8 +8,10 @@
 
 #import "TYResultViewController.h"
 #import "TYGourmetDiaryManager.h"
+#import "TYDetailViewController.h"
 #import "TYSearchTableViewCell.h"
-#import "TYKeywordSearch.h"
+#import "TYKeywordSearchConn.h"
+#import "KeywordSearch.h"
 #import "TYApplication.h"
 
 @implementation TYResultViewController {
@@ -17,8 +19,8 @@
   TYGourmetDiaryManager *_dataManager;
   NSArray *_searchData;
   NSUInteger _set;
-  TYKeywordSearch *_connection;
-  
+  TYKeywordSearchConn *_connection;
+  NSMutableDictionary *_para;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil set:(NSUInteger)set para:(NSMutableDictionary *)para
@@ -30,6 +32,7 @@
     LOG(@"set: %lu", _set)
     if (para) {
       LOG(@"para %@", para)
+      _para = para;
     }
   }
   return self;
@@ -49,30 +52,42 @@
   
   [self.view addSubview:_tableView];
   
-  _searchData = [_dataManager fetchData];
-  [_tableView reloadData];
+  if (_set == 1) {
+    _searchData = nil;
+    _searchData = [_dataManager fetchData];
+    [_tableView reloadData];
+  } else if (_set == 2) {
+    LOG()
+    [self runAPI];
+  }
 }
 
 - (void)runAPI
 {
   LOG()
-  [_dataManager resetData];
+  [_dataManager resetKeywordSearchData];
   @synchronized (self) {
-    _connection = [[TYKeywordSearch alloc] initWithTarget:self selector:@selector(getApiData)];
+    _connection = [[TYKeywordSearchConn alloc] initWithTarget:self selector:@selector(getApiData) para:_para];
     [[TYApplication application] addURLOperation:_connection];
   }
 }
 
 - (void)getApiData {
-  LOG_METHOD;
   NSError *error = nil;
   NSString *json_str = [[NSString alloc] initWithData:_connection.data encoding:NSUTF8StringEncoding];
 //  LOG(@"data_str:%@",json_str)
   NSData *jsonData = [json_str dataUsingEncoding:NSUTF8StringEncoding];
   NSDictionary *data = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-  [_dataManager addData:data];
-  _searchData = [_dataManager fetchData];
-  [_tableView reloadData];
+  LOG(@"error %@", [[data objectForKey:@"results"] objectForKey:@"error"])
+  LOG(@"data count %@", [[data objectForKey:@"results"] objectForKey:@"results_returned"])
+  
+  [_dataManager addKeywordSearchData:data];
+   _searchData = nil;
+  [_dataManager fetchKeywordSearchData:^(NSArray *ary){
+    LOG(@"ary :%@", ary)
+     _searchData = ary;
+    [_tableView reloadData];
+   }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -91,14 +106,24 @@
   SearchData *rowData = [_searchData objectAtIndex:indexPath.row];
   static NSString *cellIdentifier = @"Cell";
   TYSearchTableViewCell *cell = (TYSearchTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-//  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   if (cell == nil) {
-//    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     cell = [[TYSearchTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
   }
   [cell setUpRowData:rowData];
   
   return cell;
+}
+
+//タップイベント
+#pragma mark - Table view delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  SearchData *rowData = [_searchData objectAtIndex:indexPath.row];
+  LOG(@"sid: %@", rowData.sid)
+  NSString *para = rowData.sid;
+  TYDetailViewController *detailVC = [[TYDetailViewController alloc] initWithNibName:nil bundle:nil para:para];
+  [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

@@ -13,8 +13,8 @@
 
 @dynamic shop;
 @dynamic sid;
-@dynamic area;
-@dynamic category;
+@dynamic address;
+@dynamic genre;
 @dynamic lat;
 @dynamic lng;
 

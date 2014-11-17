@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class ShopMst;
+
+typedef void (^Callback)(NSArray *);
+typedef void (^SetData)(ShopMst *);
+
 @interface TYGourmetDiaryManager : NSObject
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
@@ -19,5 +24,9 @@
 - (void)addData:(NSDictionary *)data;
 - (void)resetData;
 - (NSArray *)fetchData;
+- (void)addKeywordSearchData:(NSDictionary *)data;
+- (void)fetchKeywordSearchData:(Callback)callback;
+- (void)resetKeywordSearchData;
+- (void)tempShopData:(NSDictionary *)data setData:(SetData)setData;
 
 @end

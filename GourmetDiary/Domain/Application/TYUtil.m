@@ -18,4 +18,12 @@
   return nil;
 }
 
++ (NSString *)checkInputTextMax:(NSString *)keyword
+{
+  if (keyword.length >= 256) {
+    return @"キーワードは 256文字までで入力してください";
+  }
+  return nil;
+}
+
 @end

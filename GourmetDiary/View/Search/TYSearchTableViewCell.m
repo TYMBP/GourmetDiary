@@ -40,11 +40,11 @@
 - (void)setUpRowData:(SearchData *)rowdata
 {
 //  LOG(@"rowdata %@",rowdata);
-  _jenre.text = rowdata.category;
+  _jenre.text = rowdata.genre;
   _jenre.frame = CGRectMake(10, 10, 100, 20);
   _name.text = rowdata.shop;
   _name.frame = CGRectMake(110, 10, 180, 20);
-  _area.text = rowdata.area;
+  _area.text = rowdata.address;
   _area.frame = CGRectMake(290, 10, 70, 20);
   
 }
