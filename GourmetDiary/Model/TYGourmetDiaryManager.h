@@ -28,5 +28,7 @@ typedef void (^SetData)(ShopMst *);
 - (void)fetchKeywordSearchData:(Callback)callback;
 - (void)resetKeywordSearchData;
 - (void)tempShopData:(NSDictionary *)data setData:(SetData)setData;
+- (void)addShopMstData:(ShopMst *)data;
+- (void)addVisitData:(NSMutableDictionary *)data;
 
 @end

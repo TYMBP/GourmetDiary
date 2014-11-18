@@ -78,16 +78,36 @@
 //  LOG(@"data_str:%@",json_str)
   NSData *jsonData = [json_str dataUsingEncoding:NSUTF8StringEncoding];
   NSDictionary *data = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-  LOG(@"error %@", [[data objectForKey:@"results"] objectForKey:@"error"])
-  LOG(@"data count %@", [[data objectForKey:@"results"] objectForKey:@"results_returned"])
   
-  [_dataManager addKeywordSearchData:data];
-   _searchData = nil;
-  [_dataManager fetchKeywordSearchData:^(NSArray *ary){
-    LOG(@"ary :%@", ary)
-     _searchData = ary;
-    [_tableView reloadData];
-   }];
+  LOG(@"error %@", [[data objectForKey:@"results"] objectForKey:@"error"])
+  LOG(@"error %@", [data valueForKeyPath:@"results.error.message"])
+  LOG(@"data count %@", [[data objectForKey:@"results"] objectForKey:@"results_returned"])
+  NSNumber *n = [[data objectForKey:@"results"] objectForKey:@"results_returned"];
+  int num = [n intValue];
+  LOG(@"n: %@", n)
+  if (num == 0) {
+    LOG(@"response null")
+    [self warning:@"検索条件が正しくないか、もしくは条件を絞り込む必要があります"];
+  } else {
+    [_dataManager addKeywordSearchData:data];
+     _searchData = nil;
+    [_dataManager fetchKeywordSearchData:^(NSArray *ary){
+      LOG(@"ary :%@", ary)
+       _searchData = ary;
+      [_tableView reloadData];
+     }];
+  }
+}
+
+- (void)warning:(NSString *)mess
+{
+  UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"入力エラー" message:mess preferredStyle:UIAlertControllerStyleAlert];
+  UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    LOG(@"OK tap")
+    [self.navigationController popToRootViewControllerAnimated:YES];
+  }];
+  [alert addAction:ok];
+  [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -125,6 +145,5 @@
   TYDetailViewController *detailVC = [[TYDetailViewController alloc] initWithNibName:nil bundle:nil para:para];
   [self.navigationController pushViewController:detailVC animated:YES];
 }
-
 
 @end

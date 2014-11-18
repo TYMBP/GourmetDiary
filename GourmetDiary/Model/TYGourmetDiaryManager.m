@@ -19,6 +19,7 @@
   VisitData *_visitData;
   NSURL *_storeURL;
   int _n;
+  NSDateFormatter *_dateFomatter;
 }
 
 static TYGourmetDiaryManager *sharedInstance = nil;
@@ -37,7 +38,9 @@ static TYGourmetDiaryManager *sharedInstance = nil;
   self = [super init];
   if (self) {
     //初期設定
-    LOG()
+    _dateFomatter = [[NSDateFormatter alloc] init];
+   [_dateFomatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+//    [_dateFomatter setDateStyle:NSDateFormatterMediumStyle];
     [self loadManagedObjectContext];
   }
   return self;
@@ -45,9 +48,7 @@ static TYGourmetDiaryManager *sharedInstance = nil;
 
 - (void)loadManagedObjectContext
 {
-  LOG()
   if (_context != nil) return;
-  LOG()
   NSPersistentStoreCoordinator *aCoodinator = [self coordinator];
   if (aCoodinator != nil) {
     _context = [[NSManagedObjectContext alloc] init];
@@ -57,14 +58,13 @@ static TYGourmetDiaryManager *sharedInstance = nil;
 
 - (NSPersistentStoreCoordinator *)coordinator
 {
-  LOG()
   if (_coordinator != nil) {
     return _coordinator;
   }
 // SQLパターン
   NSString *directory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
   _storeURL = [NSURL fileURLWithPath:[directory stringByAppendingPathComponent:@"GourmetDiary.sqlite"]];
-//  LOG(@"storeURL %@", _storeURL)
+  LOG(@"storeURL %@", _storeURL)
 //  NSURL *modelURL = [NSURL fileURLWithPath:[NSFileManager defaultManager].currentDirectoryPath];
 //  modelURL = [modelURL URLByAppendingPathComponent:@"GourmetDiary.momd"];
   NSError *error = nil;
@@ -82,6 +82,7 @@ static TYGourmetDiaryManager *sharedInstance = nil;
   }
   NSString *modelPath = [[NSBundle mainBundle] pathForResource:@"GourmetDiary" ofType:@"momd"];
   NSURL *modelURL = [NSURL fileURLWithPath:modelPath];
+  LOG(@"modelURL %@  %@", modelPath, modelURL)
   _managedObjetModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
   
   return _managedObjetModel;
@@ -248,7 +249,7 @@ static TYGourmetDiaryManager *sharedInstance = nil;
     _shopData.img_path = [[data valueForKeyPath:@"results.shop.photo.mobile.l"] objectAtIndex:0];
     _shopData.sid = [[data valueForKeyPath:@"results.shop.id"] objectAtIndex:0];
     
-    LOG(@"shop:%@ shop_kana:%@ area:%@ address:%@ genre:%@ url:%@ sp_url:%@ lat:%@ lng:%@ img_path:%@ sid:%@", _shopData.shop, _shopData.shop_kana, _shopData.area, _shopData.address, _shopData.genre, _shopData.url, _shopData.sp_url, _shopData.lat, _shopData.lng, _shopData.img_path, _shopData.sid)
+//    LOG(@"shop:%@ shop_kana:%@ area:%@ address:%@ genre:%@ url:%@ sp_url:%@ lat:%@ lng:%@ img_path:%@ sid:%@", _shopData.shop, _shopData.shop_kana, _shopData.area, _shopData.address, _shopData.genre, _shopData.url, _shopData.sp_url, _shopData.lat, _shopData.lng, _shopData.img_path, _shopData.sid)
     
   }
   
@@ -268,37 +269,100 @@ static TYGourmetDiaryManager *sharedInstance = nil;
 //店舗マスター登録
 - (void)addShopMstData:(ShopMst *)data
 {
-  _shopData = nil;
-  _shopData = (ShopMst *)[NSEntityDescription insertNewObjectForEntityForName:@"ShopMst" inManagedObjectContext:_context];
-  if (_shopData == nil) {
-    return;
-  }
   LOG()
-  _shopData.shop = data.shop;
-  _shopData.shop_kana = data.shop_kana;
-  _shopData.area = data.area;
-  _shopData.address = data.address;
-  _shopData.genre = data.genre;
-  _shopData.url = data.url;
-  _shopData.sp_url = data.sp_url;
-  _shopData.lat = data.lat;
-  _shopData.lng = data.lng;
-  _shopData.img_path = data.img_path;
-  _shopData.sid = data.sid;
-  _shopData.level = data.level;
+  _shopData = nil;
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
+  NSEntityDescription *entity = [NSEntityDescription entityForName:@"ShopMst" inManagedObjectContext:_context];
+  [request setEntity:entity];
+  NSPredicate *pred = [NSPredicate predicateWithFormat:@"sid = %@",data.sid];
+//  LOG(@"sid: %@", data.sid)
+  [request setPredicate:pred];
+  NSError *error = nil;
+  if (error) {
+    LOG(@"error %@ %@", error, [error userInfo])
+  }
+  NSArray *moArray = [_context executeFetchRequest:request error:&error];
+  _shopData = (ShopMst *)[NSEntityDescription insertNewObjectForEntityForName:@"ShopMst" inManagedObjectContext:_context];
   
-  LOG(@"shop:%@ shop_kana:%@ area:%@ address:%@ genre:%@ url:%@ sp_url:%@ lat:%@ lng:%@ img_path:%@ sid:%@ level:%@", data.shop, data.shop_kana, data.area, data.address, data.genre, data.url, data.sp_url, data.lat, data.lng, data.img_path, data.sid, data.level)
-  
-  
-  
-  
-//  NSError *error = nil;
-//  if (![_context save:&error]) {
-//    LOG("error %@", error)
-//  }
+  if (moArray.count == 0) {
+    LOG(@"新規登録")
+    if (_shopData == nil) {
+      return;
+    }
+    _shopData.shop = data.shop;
+    _shopData.shop_kana = data.shop_kana;
+    _shopData.area = data.area;
+    _shopData.address = data.address;
+    _shopData.genre = data.genre;
+    _shopData.url = data.url;
+    _shopData.sp_url = data.sp_url;
+    _shopData.lat = data.lat;
+    _shopData.lng = data.lng;
+    _shopData.img_path = data.img_path;
+    _shopData.sid = data.sid;
+    _shopData.level = data.level;
+    NSString *dateStr = [_dateFomatter stringFromDate:[NSDate date]];
+    [_dateFomatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    NSDate *date = [_dateFomatter dateFromString:dateStr];
+    _shopData.created_at = date;
+    _shopData.updated_at = date;
+    
+//    LOG(@"shop:%@ shop_kana:%@ area:%@ address:%@ genre:%@ url:%@ sp_url:%@ lat:%@ lng:%@ img_path:%@ sid:%@ level:%@", data.shop, data.shop_kana, data.area, data.address, data.genre, data.url, data.sp_url, data.lat, data.lng, data.img_path, data.sid, data.level)
+    
+  } else {
+    LOG(@"上書き")
+    NSManagedObject *updateObj = [moArray objectAtIndex:0];
+//    LOG(@"updateObj: %@", updateObj)
+    NSString *dateStr = [_dateFomatter stringFromDate:[NSDate date]];
+    [_dateFomatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    NSDate *date = [_dateFomatter dateFromString:dateStr];
+    [updateObj setValue:date forKey:@"updated_at"];
+    [updateObj setValue:data.shop forKey:@"shop"];
+    [updateObj setValue:data.shop_kana forKey:@"shop_kana"];
+    [updateObj setValue:data.area forKey:@"area"];
+    [updateObj setValue:data.address forKey:@"address"];
+    [updateObj setValue:data.genre forKey:@"genre"];
+    [updateObj setValue:data.url forKey:@"url"];
+    [updateObj setValue:data.sp_url forKey:@"sp_url"];
+    [updateObj setValue:data.lat forKey:@"lat"];
+    [updateObj setValue:data.lng forKey:@"lng"];
+    [updateObj setValue:data.img_path forKey:@"img_path"];
+    [updateObj setValue:data.level forKey:@"level"];
+  }
+  NSError *saveError = nil;
+  if (![_context save:&saveError]) {
+    LOG("error %@ %@", error, saveError)
+  }
 }
 
 /* 利用記録データ */
+- (void)addVisitData:(NSMutableDictionary *)data
+{
+//  LOG(@"data %@", data)
+  _visitData = (VisitData *)[NSEntityDescription insertNewObjectForEntityForName:@"VisitData" inManagedObjectContext:_context];
+  if (_shopData == nil) {
+    return;
+  }
+  _visitData.sid = [data valueForKeyPath:@"sid"];
+  _visitData.visited_at = [data valueForKeyPath:@"visited_at"];
+  _visitData.memo = [data valueForKeyPath:@"memo"];
+  _visitData.situation = [data valueForKeyPath:@"situation"];
+  _visitData.fee = [data valueForKeyPath:@"fee"];
+  _visitData.persons = [data valueForKeyPath:@"persons"];
+  NSString *dateStr = [_dateFomatter stringFromDate:[NSDate date]];
+  [_dateFomatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+  NSDate *date = [_dateFomatter dateFromString:dateStr];
+  _visitData.created_at = date;
+  _visitData.updated_at = date;
+  
+  LOG(@"sid:%@ visited_at:%@ memo:%@ situation:%@ fee:%@ persons:%@ created_at:%@ updated_at:%@", _visitData.sid, _visitData.visited_at, _visitData.memo, _visitData.situation, _visitData.fee, _visitData.persons, _visitData.created_at, _visitData.updated_at)
+  
+  NSError *error = nil;
+  if (![_context save:&error]) {
+    LOG("error %@", error)
+  }
+}
+
 - (NSArray *)fetchVisitData
 {
   NSError *error = nil;

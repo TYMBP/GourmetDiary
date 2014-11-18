@@ -13,6 +13,8 @@
 #define TF_CALENDAR 1
 #define TF_SITUATION 2
 #define TF_LEVEL 3
+#define TF_PERSON 4
+#define TF_FEE 5
 
 @implementation TYRegisterViewController {
   TYGourmetDiaryManager *_dataManager;
@@ -20,20 +22,29 @@
   UITextField *_douTf;
   UITextField *_situTf;
   UITextField *_levelTf;
+  UITextField *_personTf;
+  UITextField *_feeTf;
   UITextView *_comment;
   UIDatePicker *_picker;
   UIPickerView *_picker2;
   UIPickerView *_picker3;
+  UIPickerView *_picker4;
+  UIPickerView *_picker5;
   NSUInteger _levelNum;
+  NSUInteger _situNum;
+  NSUInteger _personNum;
+  NSUInteger _feeNum;
   NSMutableArray *_levelList;
   NSMutableArray *_situList;
+  NSMutableArray *_personList;
+  NSMutableArray *_feeList;
   NSUInteger _tagNum;
   UIToolbar *_toolbar;
   UIToolbar *_toolbar2;
   UIToolbar *_toolbar3;
+  UIToolbar *_toolbar4;
+  UIToolbar *_toolbar5;
   UIView *_backView;
-  UIView *_backView2;
-  UIView *_backView3;
   NSDateFormatter *_dateFomatter;
 }
 
@@ -60,40 +71,54 @@
   _dateFomatter = [[NSDateFormatter alloc] init];
   [_dateFomatter setDateStyle:NSDateFormatterShortStyle];
   
-  UILabel *dou = [self makeLabel:CGRectMake(20, 80, 150, 50) text:@"利用日"];
-  UILabel *situation = [self makeLabel:CGRectMake(20, 130, 150, 50) text:@"シチュエーション"];
-  UILabel *level = [self makeLabel:CGRectMake(20, 180, 150, 50) text:@"マイ評価"];
-  UILabel *comment = [self makeLabel:CGRectMake(20, 230, 150, 50) text:@"コメント"];
-  _douTf = [self makeTextField:CGRectMake(180, 80, 180, 40)];
+  UILabel *dou = [self makeLabel:CGRectMake(20, 80, 150, 40) text:@"利用日"];
+  UILabel *situation = [self makeLabel:CGRectMake(20, 120, 150, 40) text:@"シチュエーション"];
+  UILabel *level = [self makeLabel:CGRectMake(20, 160, 150, 40) text:@"マイ評価"];
+  UILabel *person = [self makeLabel:CGRectMake(20, 200, 150, 40) text:@"人数"];
+  UILabel *fee = [self makeLabel:CGRectMake(20, 240, 150, 40) text:@"料金"];
+  UILabel *comment = [self makeLabel:CGRectMake(20, 280, 150, 40) text:@"コメント"];
+  _douTf = [self makeTextField:CGRectMake(180, 80, 180, 30)];
   _douTf.delegate = self;
   _douTf.tag = TF_CALENDAR;
   _douTf.text = [_dateFomatter stringFromDate:[NSDate date]];
-  _situTf = [self makeTextField:CGRectMake(180, 130, 180, 40)];
+  _situTf = [self makeTextField:CGRectMake(180, 120, 180, 30)];
   _situTf.delegate = self;
   _situTf.tag = TF_SITUATION;
-  _levelTf = [self makeTextField:CGRectMake(180, 180, 180, 40)];
+  _levelTf = [self makeTextField:CGRectMake(180, 160, 180, 30)];
   _levelTf.delegate =self;
   _levelTf.tag = TF_LEVEL;
-  _comment = [[UITextView alloc] initWithFrame:CGRectMake(20, 280, 340, 200)];
+  _personTf = [self makeTextField:CGRectMake(180, 200, 180, 30)];
+  _personTf.delegate =self;
+  _personTf.tag = TF_PERSON;
+  _feeTf = [self makeTextField:CGRectMake(180, 240, 180, 30)];
+  _feeTf.delegate =self;
+  _feeTf.tag = TF_FEE;
+  _comment = [[UITextView alloc] initWithFrame:CGRectMake(20, 320, 340, 180)];
   _comment.font = [UIFont fontWithName:FONT_HIRAKAKUW6 size:16];
   _comment.editable = YES;
   
-  UIButton *registBtn = [self makeButton:CGRectMake(40, 500, 300, 40) text:@"登録する"];
-  [registBtn addTarget:self action:@selector(registerVisitData) forControlEvents:UIControlEventTouchUpInside];
+  UIButton *registBtn = [self makeButton:CGRectMake(40, 530, 300, 40) text:@"登録する"];
+  [registBtn addTarget:self action:@selector(validationData) forControlEvents:UIControlEventTouchUpInside];
   
   [self.view addSubview:dou];
   [self.view addSubview:situation];
   [self.view addSubview:level];
+  [self.view addSubview:person];
+  [self.view addSubview:fee];
   [self.view addSubview:comment];
   [self.view addSubview:_comment];
   [self.view addSubview:_douTf];
   [self.view addSubview:_situTf];
   [self.view addSubview:_levelTf];
+  [self.view addSubview:_personTf];
+  [self.view addSubview:_feeTf];
   [self.view addSubview:registBtn];
   
   //picker
   _levelList = [[NSMutableArray alloc] initWithObjects:@"", @"うーん1点", @"もうちょい2点", @"まあまあ3点", @"まずまず4点", @"うまい！5点", nil];
-  _situList = [[NSMutableArray alloc] initWithObjects:@"", @"BREAKFAST", @"LUNCH", @"DINNER", @"CAFE", @"TAKEOUT", @"OTHER", nil];
+  _situList = [[NSMutableArray alloc] initWithObjects:@"", @"朝ごはん", @"昼ごはん", @"夜ごはん", @"お茶のじかん", @"お酒のじかん", @"持ちかえり", @"OTHER", nil];
+  _personList = [[NSMutableArray alloc] initWithObjects:@"", @"1人", @"2人", @"3人", @"4人", @"5人〜9人", @"10人以上", nil];
+  _feeList = [[NSMutableArray alloc] initWithObjects:@"", @"500円しない", @"500〜1,000円くらい", @"1,000〜2,000円くらい", @"2,000〜3,000円くらい", @"3,000〜4,000円くらい", @"4,000〜5,000円くらい", @"5,000〜10,000円だったかな", @"10,000円以上だった…", nil];
   
   _picker = [[UIDatePicker alloc] init];
   _picker.minuteInterval = 1;
@@ -108,18 +133,30 @@
   _picker3 = [self makePicker];
   _picker3.tag = TF_LEVEL;
   _levelTf.inputView = _picker3;
+  _picker4 = [self makePicker];
+  _picker4.tag = TF_PERSON;
+  _personTf.inputView = _picker4;
+  _picker5 = [self makePicker];
+  _picker5.tag = TF_FEE;
+  _feeTf.inputView = _picker5;
   _toolbar = [self makeToolbar:CGRectMake(0, 0, 320, 44)];
   _toolbar.tag = TF_CALENDAR;
   _toolbar2 = [self makeToolbar:CGRectMake(0, 0, 320, 44)];
   _toolbar2.tag = TF_SITUATION;
   _toolbar3 = [self makeToolbar:CGRectMake(0, 0, 320, 44)];
   _toolbar3.tag = TF_LEVEL;
+  _toolbar4 = [self makeToolbar:CGRectMake(0, 0, 320, 44)];
+  _toolbar4.tag = TF_PERSON;
+  _toolbar5 = [self makeToolbar:CGRectMake(0, 0, 320, 44)];
+  _toolbar5.tag = TF_FEE;
   _douTf.inputAccessoryView = _toolbar;
   _situTf.inputAccessoryView = _toolbar2;
   _levelTf.inputAccessoryView = _toolbar3;
+  _personTf.inputAccessoryView = _toolbar4;
+  _feeTf.inputAccessoryView = _toolbar5;
   _backView = [[UIView alloc] initWithFrame:self.view.frame];
-  _backView.backgroundColor = [UIColor blackColor];
-  _backView.alpha = 0.2;
+  _backView.backgroundColor = [UIColor clearColor];
+//  _backView.alpha = 0;
   _backView.hidden = YES;
   _backView.userInteractionEnabled = NO;
   [self.view addSubview:_backView];
@@ -178,6 +215,7 @@
   
   return textField;
 }
+
 - (UIButton *)makeButton:(CGRect)rect text:(NSString *)text
 {
   UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -193,17 +231,20 @@
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-  LOG()
   _tagNum = 0;
   
   switch (textField.tag) {
     case TF_SITUATION:
-    LOG()
       _tagNum = TF_SITUATION;
       break;
     case TF_LEVEL:
-    LOG()
       _tagNum = TF_LEVEL;
+      break;
+    case TF_PERSON:
+      _tagNum = TF_PERSON;
+      break;
+    case TF_FEE:
+      _tagNum = TF_FEE;
       break;
     default:
       break;
@@ -219,23 +260,56 @@
   [_levelTf resignFirstResponder];
   [_douTf resignFirstResponder];
   [_situTf resignFirstResponder];
+  [_personTf resignFirstResponder];
+  [_feeTf resignFirstResponder];
+}
+
+//バリデーション
+- (void)validationData
+{
+  if ([_douTf.text length] == 0 || [_situTf.text length] == 0 || [_levelTf.text length] == 0 || [_personTf.text length] == 0 || [_feeTf.text length] == 0) {
+    [self warning:@"未入力項目があります"];
+  } else if ([_comment.text length] >= 256){
+    [self warning:@"コメントは256文字までで入力してください"];
+  } else {
+    [_dateFomatter setDateFormat:@"yyyy/MM/dd"];
+    [_dateFomatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    NSDate *date = [_dateFomatter dateFromString:_douTf.text];
+  
+    NSString *dateStr = [_dateFomatter stringFromDate:[NSDate date]];
+    [_dateFomatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    NSDate *now = [_dateFomatter dateFromString:dateStr];
+    NSComparisonResult result  = [date compare:now];
+    
+    switch (result) {
+      case NSOrderedDescending:
+        [self warning:@"日時の入力に誤りがあります"];
+        break;
+      default:
+        [self registerVisitData:date];
+        break;
+    }
+  }
 }
 
 //登録
-- (void)registerVisitData
+- (void)registerVisitData:(NSDate *)date
 {
-  LOG()
-  if ([_douTf.text length] == 0 || [_situTf.text length] == 0 || [_levelTf.text length] == 0) {
-    LOG()
-    [self warning:@"未入力項目があります"];
-  } else if ([_comment.text length] >= 256){
-    LOG()
-    [self warning:@"コメントは256文字までで入力してください"];
-  } else {
-    _para.level = [NSNumber numberWithInteger:_levelNum];
-    
-    
-  }
+  NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+  [dic setValue:_para.sid forKey:@"sid"];
+  [dic setValue:date forKey:@"visited_at"];
+  [dic setValue:[NSNumber numberWithInteger:_personNum] forKey:@"persons"];
+  [dic setValue:_comment.text forKey:@"memo"];
+  [dic setValue:[NSNumber numberWithInteger:_situNum] forKey:@"situation"];
+  [dic setValue:[NSNumber numberWithInteger:_feeNum] forKey:@"fee"];
+  _para.level = [NSNumber numberWithInteger:_levelNum];
+  [_dataManager addShopMstData:_para];
+  [_dataManager addVisitData:dic];
+
+//  if ([self.modalDelegate respondsToSelector:@selector(searchDidFinish)]) {
+//    [self.modalDelegate searchDidFinish];
+//  }
+  [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 //AlertView
@@ -264,6 +338,12 @@
     case TF_LEVEL:
       n = [_levelList count];
       break;
+    case TF_PERSON:
+      n = [_personList count];
+      break;
+    case TF_FEE:
+      n = [_feeList count];
+      break;
     default:
       break;
   }
@@ -280,6 +360,12 @@
     case TF_LEVEL:
       list = _levelList;
       break;
+    case TF_PERSON:
+      list = _personList;
+      break;
+    case TF_FEE:
+      list = _feeList;
+      break;
     default:
       break;
   }
@@ -292,16 +378,25 @@
   switch (_tagNum) {
     case TF_SITUATION:
       _situTf.text = [NSString stringWithFormat:@"%@", _situList[row]];
+      _situNum = row;
       break;
     case TF_LEVEL:
       _levelTf.text = [NSString stringWithFormat:@"%@", _levelList[row]];
       _levelNum = row;
-      LOG(@"levelNum: %lu", row)
+      break;
+    case TF_PERSON:
+      _personTf.text = [NSString stringWithFormat:@"%@", _personList[row]];
+      _personNum = row;
+      break;
+    case TF_FEE:
+      _feeTf.text = [NSString stringWithFormat:@"%@", _feeList[row]];
+      _feeNum = row;
       break;
     default:
       break;
   }
 }
+
 //カレンダー更新
 - (void)datePickerEventValueChanged
 {
@@ -314,7 +409,13 @@
   [self.view.subviews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop){
     if ([obj isKindOfClass:[UITextView class]]) {
       LOG()
+      _backView.hidden = YES;
       [obj resignFirstResponder];
+    } else if ([obj isKindOfClass:[UITextField class]]) {
+      LOG()
+      _backView.hidden = YES;
+      [obj resignFirstResponder];
+    } else {
     }
   }];
 }

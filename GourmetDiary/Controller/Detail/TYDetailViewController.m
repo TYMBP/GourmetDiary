@@ -50,16 +50,16 @@
   UILabel *address = [self makeLabel:CGRectMake(20, 200, 100, 40) text:@"アドレス"];
   UILabel *visited = [self makeLabel:CGRectMake(20, 240, 100, 40) text:@"訪問回数"];
   _nameData = [self makeLabel:CGRectMake(140, 80, 200, 40) text:@""];
-  _levelData = [self makeLabel:CGRectMake(140, 120, 200, 40) text:@"test"];
+  _levelData = [self makeLabel:CGRectMake(140, 120, 200, 40) text:@""];
   _genreData = [self makeLabel:CGRectMake(140, 160, 200, 40) text:@""];
   _addressData = [self makeLabel:CGRectMake(140, 200, 200, 40) text:@""];
-  _visitedData = [self makeLabel:CGRectMake(140, 240, 200, 40) text:@"4回"];
+  _visitedData = [self makeLabel:CGRectMake(140, 240, 200, 40) text:@""];
   _shopImage = [self makeImageView:CGRectMake(20, 300, 168, 125) path:nil];
   UIButton *mapBtn = [self makeButton:CGRectMake(230, 300, 100, 30) text:@"地図"];
   UIButton *telBtn = [self makeButton:CGRectMake(230, 350, 100, 30) text:@"電話"];
   UIButton *hpBtn = [self makeButton:CGRectMake(230, 400, 100, 30) text:@"hotpepper"];
-  UIButton *registBtn = [self makeButton:CGRectMake(40, 450, 280, 40) text:@"登録する"];
-  [registBtn addTarget:self action:@selector(registerVisitData) forControlEvents:UIControlEventTouchUpInside];
+  UIButton *registBtn = [self makeButton:CGRectMake(40, 450, 280, 40) text:@"登録画面へ"];
+  [registBtn addTarget:self action:@selector(nextInputData) forControlEvents:UIControlEventTouchUpInside];
   
   //日記登録
   [self.view addSubview:name];
@@ -77,7 +77,6 @@
   [self.view addSubview:telBtn];
   [self.view addSubview:hpBtn];
   [self.view addSubview:registBtn];
-  
   
   [self runAPI];
 }
@@ -121,12 +120,11 @@
   return iv;
 }
 
-- (void)registerVisitData
+- (void)nextInputData
 {
   LOG()
   TYRegisterViewController *detailVC = [[TYRegisterViewController alloc] initWithNibName:nil bundle:nil para:_shopData];
   [self.navigationController pushViewController:detailVC animated:YES];
-  
 }
 
 //ショップ詳細データ取得
@@ -146,7 +144,9 @@
   LOG(@"data_str:%@",json_str)
   NSData *jsonData = [json_str dataUsingEncoding:NSUTF8StringEncoding];
   NSDictionary *data = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-//  LOG(@"error %@", [[data objectForKey:@"results"] objectForKey:@"error"])
+  if (error) {
+    LOG(@"error %@", [[data valueForKeyPath:@"results.error.message"] objectForKey:0])
+  }
 //  LOG(@"data count %@", [[data objectForKey:@"results"] objectForKey:@"results_returned"])
   
   _shopData = nil;
